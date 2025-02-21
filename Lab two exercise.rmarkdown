@@ -19,7 +19,9 @@ glimpse(tree_data)
 #Question 1: There are 8 columns, with treeID, standId, stand, year, species, age, inc, and rad_ib. Some are numbers, some are years, some are decimals, etc.
 #use cntrl alt i to make a new code chunk
 ```
-#The dataset structure is in named headers with numerics and variables for each row. The headers for each row are: treeID, standID, stnad, year, species, age, inc, rad_iib. I see numbers, years, and species abbreviations. 
+
+#The dataset structure is in named headers with numerics and variables for each row. The headers for each row are: treeID, standID, stnad, year, species, age, inc, rad_iib. I see numbers, years, and species abbreviations.
+
 ```{r}
 tree_data %>% summarise(n = n())
 #different way to use glimpse for looking at number of rows
@@ -29,6 +31,7 @@ tree_data %>% summarise(n = n())
 nrow(tree_data)
 #ask how many rows exist
 ```
+
 ```{r}
 #Question 2 
 tree_data %>%
@@ -41,8 +44,8 @@ tree_data %>%
 #filter function to subset rows based on condition
 #filter stand_ID == 1 shows us only when standID is 1 
 ```
-# There are 979 trees with standID one. 
 
+# There are 979 trees with standID one.
 
 ```{r}
 #to rename and produce in env 
@@ -68,7 +71,7 @@ tree_data %>%
 #use %in% 
 ```
 
-#There are 13033 records of Abies Balsamea and 4188 records of Pinus Strobus made. 
+#There are 13033 records of Abies Balsamea and 4188 records of Pinus Strobus made.
 
 ```{r}
 #Question 4 
@@ -84,7 +87,9 @@ tree_data %>%
   filter(year == last_year, age > 200) %>%
   count()
 ```
-#There are 7 trees older than 200 years in the dataset. 
+
+#There are 7 trees older than 200 years in the dataset.
+
 ```{r}
 #Question 5
 tree_data %>%
@@ -94,13 +99,16 @@ tree_data %>%
 #difference between slice max and n=1 is that slicemax will give us the top values with that, n=5, 7 the top 5 and top 7 rows 
 #oldest_tree is copy of tree_data set 
 ```
+
 #The oldest tree in the dataset is 269 years old.
+
 ```{r}
 oldest_tree <-tree_data %>% 
   slice_max(order_by =age, n=1)
 
 print(oldest_tree)
 ```
+
 ```{r}
 #Question 6 
 #Find the oldest 5 trees recorded in 2001. Use the help docs to understand optional parameters
@@ -112,7 +120,9 @@ tree_data %>%
   
 
 ```
-#The 5 oldest trees are treeID 24,25,1595,1598, and 1712.They range from 206-263 years. 
+
+#The 5 oldest trees are treeID 24,25,1595,1598, and 1712.They range from 206-263 years.
+
 ```{r}
 # Question 7 
 #Using slice_sample, how many trees are in a 30% sample of those recorded in 2002
@@ -123,6 +133,7 @@ tree_data %>%
 # There are 2,291 trees in a 30% sample. 
 
 ```
+
 ```{r}
 # Question 8: Filter all trees in stand 5 in 2007. Sort this subset by descending radius at breast height (rad_ib) and use slice_head() to get the top three trees. Report the tree IDs
 
@@ -134,7 +145,9 @@ tree_data %>%
   pull(treeID)
 
 ```
-#The treeID's are 145, 122, and 126. 
+
+#The treeID's are 145, 122, and 126.
+
 ```{r}
 # Question 9: Reduce your full data.frame to [treeID, stand, year, and radius at breast height]. Filter to only those in stand 3 with records from 2007, and use slice_min to pull the smallest three trees meaured that year.
 
@@ -144,7 +157,9 @@ tree_data %>%
   select(treeID, standID, year, rad_ib) %>%
   glimpse()
 ```
-#The treeID's of the smallest three trees are 50,56,36. 
+
+#The treeID's of the smallest three trees are 50,56,36.
+
 ```{r}
 #Question 10: Use select to remove the stand column. Use glimspe to show the dataset.
 library(tidyverse)
@@ -153,7 +168,9 @@ tree_data |>
   select(-stand) |>
    glimpse()
 ```
-#The dataset has the same columns, just not a column for stand. 
+
+#The dataset has the same columns, just not a column for stand.
+
 ```{r}
 #Question 11: Look at the help document for dplyr::select and examine the “Overview of selection features”. Identify an option (there are multiple) that would help select all columns with the string “ID” in the name. Using glimpse to view the remaining dataset
 
@@ -162,6 +179,7 @@ tree_data %>%
   glimpse()
 
 ```
+
 #THe option I chose is contains("ID")
 
 ```{r}
@@ -173,7 +191,6 @@ tree_data <- tree_data %>%
   rename(rad_ib_unit = rad_ib)
 ```
 
-
 ```{r}
 tree_data <- tree_data %>%
   rename(inc_unit = inc)
@@ -183,8 +200,8 @@ tree_data <- tree_data %>%
 ```{r}
 glimpse(tree_data)
 ```
-# inc_unit and rad_ib_unit exist when looking at the glimpse. 
 
+# inc_unit and rad_ib_unit exist when looking at the glimpse.
 
 ```{r}
 #Question 14: A key measurement in forestry in “basal area column”. The metric is computed with the formula:
@@ -208,7 +225,8 @@ print(mean_BA_m2)
 
 
 ```
-#The mean is 0.03696619 cm. 
+
+#The mean is 0.03696619 cm.
 
 ```{r}
 #Question 15: Lets say for the sake of our study, trees are not established until they are 5 years of age. Use if_else to add a boolean column to our dataset called established that is TRUE if the age is greater then 5 and FALSE if less then or equal to five. Once added, use count (see ?count) to determine how many records are from estabilshed trees?
@@ -218,6 +236,7 @@ tree_data <- tree_data %>%
 tree_data %>%
   count(established)
 ```
+
 #There are 122503 trees that from the established record (in the TRUE column)
 
 ```{r}
@@ -235,10 +254,10 @@ tree_data <- tree_data |>
 print(count)
 
 ```
+
 ```{r}
 names(tree_data)
 ```
-
 
 ```{r}
 #Question 17: Compute the mean DBH (in cm) and standard deviation of DBH (in cm) for all trees in 2007. Explain the values you found and their statistical meaning.
@@ -251,7 +270,8 @@ tree_data |>
   )
 
 ```
-#This means that the average tree diameter breast height is 16.09cm. The deviation from the mean is 6.14 cm, meaning that there is decent variation within tree DBH sizes. These might help to see the growth of trees since 2007, in relation to the DBH which is a standard measuring tool for tree growth. 
+
+#This means that the average tree diameter breast height is 16.09cm. The deviation from the mean is 6.14 cm, meaning that there is decent variation within tree DBH sizes. These might help to see the growth of trees since 2007, in relation to the DBH which is a standard measuring tool for tree growth.
 
 ```{r}
 library(tidyverse)
@@ -260,7 +280,6 @@ tree_data = read.csv('tree_data.csv')
 
 glimpse(tree_data)
 ```
-
 
 ```{r}
 #Question 18: Compute the per species mean tree age using only those ages recorded in 2003. Identify the three species with the oldest mean age.
@@ -275,7 +294,8 @@ tree_data %>%
 #The mean tree age is 
 
 ```
-#The species with the oldest mean age are Thuja occidentalis,Fraxinus nigra, and 	Pinus strobus.
+
+#The species with the oldest mean age are Thuja occidentalis,Fraxinus nigra, and Pinus strobus.
 
 ```{r}
 #Question 19: In a single summarize call, find the number of unique years with records in the data set along with the first and last year recorded?
@@ -288,7 +308,9 @@ summary_year <- tree_data |>
   print(summary_year)
 
 ```
-#There are 111 unique years recorded. The first year recorded is 1897, and the last year recorded is 2007. 
+
+#There are 111 unique years recorded. The first year recorded is 1897, and the last year recorded is 2007.
+
 ```{r}
 #Question 20: Determine the stands with the largest number of unique years recorded. Report all stands with largest (or tied with the largest) temporal record.
 
@@ -305,8 +327,8 @@ tree_data <- tree_data %>%
 glimpse(tree_data)
 
 ```
-#The stands with the largest number of unique years recorded is 1,15,16,17,24.
 
+#The stands with the largest number of unique years recorded is 1,15,16,17,24.
 
 ```{r}
 #FINAL QUESTION
@@ -349,6 +371,3 @@ print(tree_data_fastestgrowth)
 print("Slowest Growing Species")
 print(tree_data_slowestgrowth)  
 ```
-
-
-
