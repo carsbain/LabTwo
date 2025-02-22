@@ -2,6 +2,7 @@
 title: "Lab 2 Exercise"
 format: html
 editor: visual
+toc: true
 ---
 
 ## Quarto
@@ -118,7 +119,7 @@ tree_data %>%
 #Using slice_sample, how many trees are in a 30% sample of those recorded in 2002
 tree_data %>% 
   filter(year == 2002)
-  ?slice_sample(1:round(nrow(tree_data)* 0.30, 0))
+  slice_sample(1:round(nrow(tree_data)* 0.30, 0))
         
 # There are 2,291 trees in a 30% sample. 
 
